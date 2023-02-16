@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 
-function ReviewSubmission() {
+const ReviewSubmission= () => {
   return (
     <div>
       This is the review submission page

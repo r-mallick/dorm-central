@@ -1,11 +1,11 @@
 import Button from '@mui/material/Button';
 
-function Comparison() {
+const Home = () => {
   return (
     <div>
-      This is the comparison page
+      This is the homepage
     </div>
   );
 }
 
-export default Comparison;
+export default Home;
