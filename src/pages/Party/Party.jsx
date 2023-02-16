@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 
-function Party() {
+const Party = () => {
   return (
     <div>
       This is the party submission page

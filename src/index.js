@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Home from './pages/Home';
-import Comparison from './pages/Comparison';
-import Party from './pages/Party';
-import ReviewsPage from './pages/ReviewsPage';
-import ReviewSubmission from './pages/ReviewSubmission';
+import Home from './pages/Home/Home';
+import Comparison from './pages/Comparison/Comparison';
+import Party from './pages/Party/Party';
+import ReviewsPage from './pages/ReviewsPage/ReviewsPage';
+import ReviewSubmission from './pages/ReviewSubmission/ReviewSubmission';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
