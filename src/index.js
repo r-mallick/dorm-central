@@ -3,11 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Home from './pages/Home';
+import Comparison from './pages/Comparison';
+import Party from './pages/Party';
+import ReviewsPage from './pages/ReviewsPage';
+import ReviewSubmission from './pages/ReviewSubmission';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Home />
+    <Comparison />
+    <Party />
+    <ReviewsPage />
+    <ReviewSubmission />
   </React.StrictMode>
 );
 
