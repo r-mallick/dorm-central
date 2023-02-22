@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 import Home from './pages/Home/Home';
 import Comparison from './pages/Comparison/Comparison';
@@ -10,15 +11,12 @@ import ReviewsPage from './pages/ReviewsPage/ReviewsPage';
 import ReviewSubmission from './pages/ReviewSubmission/ReviewSubmission';
 
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Home />
-    <Comparison />
-    <Party />
-    <ReviewsPage />
-    <ReviewSubmission />
-  </React.StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

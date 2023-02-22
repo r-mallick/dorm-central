@@ -1,6 +1,7 @@
 import { Rating, CardMedia, Button, Grid, Card, CardContent, Typography, CardActionArea } from '@mui/material'
-
+import {Link } from "react-router-dom";
 import './Home.css';
+
 
 //Party Card component
 function PartyCard({ title }) {
@@ -65,15 +66,25 @@ const Home = () => {
         <h2 class="hero-subtitle">
               The one-stop site for anything dorm related.
         </h2>
+
+        <Link to="/reviewSubmission">
         <Button variant="contained" sx={{ m: 1 }}>
           Submit a Review
         </Button>
+        </Link>
+
+        <Link to="/party">
         <Button variant="contained" sx={{ m: 1 }}>
           Post a Party
         </Button>
+        </Link>
+
+        <Link to="/comparison">
         <Button variant="contained" sx={{ m: 1 }}>
           Compare Dorms
         </Button>
+        </Link>
+        
       </div>
       </section>
       <section>
