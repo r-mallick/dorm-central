@@ -36,21 +36,23 @@ function PartyCard({ title }) {
 //DormCard Component
 function DormCard({ value, imgName }) {
   return (
-    <Grid sx={{ m: 1 }}>
-      <Card style = {{width: 300}}>
-        <CardActionArea>
-          <CardMedia
-            component = "img"
-            sx={{ height: 200 }}
-            image={require('./Home-assets/' + imgName)}
-          />
-          <CardContent>
-            <Typography variant='h6'>{value}</Typography>
-            <Rating name="read-only" defaultValue={3} readOnly />
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Grid>
+    <Link to="/reviewsPage">
+      <Grid sx={{ m: 1 }}>
+        <Card style = {{width: 300}}>
+          <CardActionArea>
+            <CardMedia
+              component = "img"
+              sx={{ height: 200 }}
+              image={require('./Home-assets/' + imgName)}
+            />
+            <CardContent>
+              <Typography variant='h6'>{value}</Typography>
+              <Rating name="read-only" defaultValue={3} readOnly />
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Grid>
+    </Link>
   )
 }
 
