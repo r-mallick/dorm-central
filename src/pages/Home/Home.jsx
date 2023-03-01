@@ -1,6 +1,11 @@
 import { Rating, CardMedia, Button, Grid, Card, CardContent, Typography, CardActionArea } from '@mui/material'
+<<<<<<< HEAD
 import { Link } from 'react-router-dom'; 
+=======
+import {Link } from "react-router-dom";
+>>>>>>> origin
 import './Home.css';
+
 
 //Party Card component
 function PartyCard({ title }) {
@@ -35,21 +40,23 @@ function PartyCard({ title }) {
 //DormCard Component
 function DormCard({ value, imgName }) {
   return (
-    <Grid sx={{ m: 1 }}>
-      <Card style = {{width: 300}}>
-        <CardActionArea>
-          <CardMedia
-            component = "img"
-            sx={{ height: 200 }}
-            image={require('./Home-assets/' + imgName)}
-          />
-          <CardContent>
-            <Typography variant='h6'>{value}</Typography>
-            <Rating name="read-only" defaultValue={3} readOnly />
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Grid>
+    <Link to="/reviewsPage">
+      <Grid sx={{ m: 1 }}>
+        <Card style = {{width: 300}}>
+          <CardActionArea>
+            <CardMedia
+              component = "img"
+              sx={{ height: 200 }}
+              image={require('./Home-assets/' + imgName)}
+            />
+            <CardContent>
+              <Typography variant='h6'>{value}</Typography>
+              <Rating name="read-only" defaultValue={3} readOnly />
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Grid>
+    </Link>
   )
 }
 
@@ -65,15 +72,25 @@ const Home = () => {
         <h2 class="hero-subtitle">
               The one-stop site for anything dorm related.
         </h2>
+
+        <Link to="/reviewSubmission">
         <Button variant="contained" sx={{ m: 1 }}>
           Submit a Review
         </Button>
+        </Link>
+
+        <Link to="/party">
         <Button variant="contained" sx={{ m: 1 }}>
           Post a Party
         </Button>
+        </Link>
+
+        <Link to="/comparison">
         <Button variant="contained" sx={{ m: 1 }}>
           Compare Dorms
         </Button>
+        </Link>
+        
       </div>
       </section>
       <section>
