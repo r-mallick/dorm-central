@@ -2,8 +2,8 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 .rating-box {
-  background-color: #923939ce;
-  border: 5px solid #502626;
+  background-color: #dad0d0ce;
+  border: 3px solid #6e6969;
   border-radius: 3px;
   padding: 20px;
   margin: 50px;
@@ -50,7 +50,7 @@ body {
   height: 100px;
   margin-bottom: 10px;
   padding: 10px;
-  border: 4px solid #502626;
+  border: 3px solid #6e6969;
   border-radius: 5px;
   font-size: 16px;
   box-sizing: border-box;
@@ -74,7 +74,7 @@ body {
 
 .form-control {
   position: relative;
-  color: white;
+  color: rgb(255, 255, 255);
 
 }
 

@@ -1,6 +1,4 @@
-<<<<<<< HEAD
- 
-=======
+
 import * as React from 'react';
 import { Typography, Container, Box, Tabs, Tab,  Card, CardContent,  Grid, Stack, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import {Link } from "react-router-dom";
@@ -88,7 +86,7 @@ function ReviewCard(){
 
 
 //webpage
->>>>>>> origin
+
 const ReviewsPage = () => {
   return (
     <body class="body"> 

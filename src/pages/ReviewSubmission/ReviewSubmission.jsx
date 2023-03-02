@@ -1,25 +1,24 @@
- /*
-const ReviewsPage = () => {
-  return (
-    <div>
-      This is the reviews page
-    </div>
-  );
-}
-
-*/ 
-
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl'; 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select'; 
-
+import Container from '@mui/material/Container'; 
+import Tabs from '@mui/material/Tabs';
+import Toolbar from '@mui/material/Toolbar';
+import AppBar from '@mui/material/AppBar';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from "@material-ui/icons/Menu";
+import { styled } from '@mui/material/styles';
 
 import React, { useState } from 'react';
 import './RatingBox.css';
  
+const Header = styled(AppBar)({
+  backgroundColor: '#923939ce',
+  padding: '50px',
+});
 
 function RatingBox() {
   const [rating, setRating] = useState(null);
@@ -58,6 +57,19 @@ function RatingBox() {
 
 
   return (
+    <div>
+        <section class="hero-rev">
+        <div class="hero-rev-content">
+          <h1 class="hero-rev-title">
+            Submit a Review
+          </h1>
+          <h2 class="hero-rev-subtitle">
+            Rate the Hill!
+          </h2>
+          <Container maxWidth="false"  > 
+          </Container>
+        </div>
+      </section>
     <div className="rating-box">
       <form onSubmit={handleSubmit}>
         <div className="rating-inputs"> 
@@ -102,13 +114,10 @@ function RatingBox() {
           value={selectedValue}
           onChange={handleRoomChange}
         > 
-          <MenuItem value="Single">Single</MenuItem>
-          <MenuItem value="Double">Double</MenuItem>
-          <MenuItem value="Triple">Triple</MenuItem>
+          <MenuItem value="Classic">Classic</MenuItem>
+          <MenuItem value="Deluxe">Deluxe</MenuItem>
           <MenuItem value="Suite">Suite</MenuItem>
-          <MenuItem value="Deluxe Double">Deluxe Double</MenuItem>
-          <MenuItem value="Deluxe Triple">Deluxe Triple</MenuItem>
-          
+          <MenuItem value="Plaza">Plaza</MenuItem>
         </Select>
       </FormControl>
      
@@ -117,6 +126,7 @@ function RatingBox() {
         <button type="submit" className="submit-button">Submit</button>
       </form>
     </div>
+    </div> 
   );
 }
 

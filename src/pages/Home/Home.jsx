@@ -1,9 +1,5 @@
 import { Rating, CardMedia, Button, Grid, Card, CardContent, Typography, CardActionArea } from '@mui/material'
-<<<<<<< HEAD
-import { Link } from 'react-router-dom'; 
-=======
-import {Link } from "react-router-dom";
->>>>>>> origin
+import { Link } from "react-router-dom";
 import './Home.css';
 
 
