@@ -1,6 +1,5 @@
 import './App.css';
-import Button from '@mui/material/Button';
-import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from './pages/Home/Home';
 import Comparison from './pages/Comparison/Comparison';
 import Party from './pages/Party/Party';

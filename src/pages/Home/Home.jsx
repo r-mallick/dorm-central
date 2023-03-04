@@ -1,31 +1,33 @@
 import { Rating, CardMedia, Button, Grid, Card, CardContent, Typography, CardActionArea } from '@mui/material'
 import { Link } from "react-router-dom";
 import './Home.css';
-
-
+import { db } from '../../firebase';
+import { collection, getDocs } from "firebase/firestore";
+import { useState, useEffect } from "react";
 //Party Card component
-function PartyCard({ title }) {
+
+function PartyCard({ date, location, caption, person, title, occupancy }) {
   return (
     <Grid sx={{ mx: 2 }}>
       <Card style = {{width: 250}}>
         <CardContent>
-        <Typography variant="h6" fontWeight="bold" align="center" paragraph>
+          <Typography variant="h6" fontWeight="bold" align="center" paragraph>
             { title }
           </Typography>
           <Typography component="p" paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-          nisi ut aliquip ex ea commodo consequat.
+            { caption }
           </Typography>
           <Typography component="p">
-            Who:
+            Who: { person }
           </Typography>
           <Typography component="p">
-            Where:
+            Where: { location }
           </Typography>
           <Typography component="p">
-            When:
+            When: { date }
+          </Typography>
+          <Typography component="p">
+            Max Occupancy: { occupancy }
           </Typography>
         </CardContent>
       </Card>
@@ -36,7 +38,7 @@ function PartyCard({ title }) {
 //DormCard Component
 function DormCard({ value, imgName }) {
   return (
-    <Link to="/reviewsPage">
+    <Link to="/reviewsPage" style={{ textDecoration: 'none' }}>
       <Grid sx={{ m: 1 }}>
         <Card style = {{width: 300}}>
           <CardActionArea>
@@ -58,6 +60,23 @@ function DormCard({ value, imgName }) {
 
 //Home Page Setup
 const Home = () => {
+  
+  const [parties, setParties] = useState([]);
+  const partiesCollectionRef = collection(db, "parties");
+  
+  useEffect(() => {
+    const getParties = async () => {
+      const data = await getDocs(partiesCollectionRef);
+      setParties(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+    };
+
+    getParties();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const data = getDocs(partiesCollectionRef);
+  console.log(data);
+
   return (
     <body class="body">
       <section class="hero">
@@ -69,19 +88,19 @@ const Home = () => {
               The one-stop site for anything dorm related.
         </h2>
 
-        <Link to="/reviewSubmission">
+        <Link to="/reviewSubmission" style={{ textDecoration: 'none' }}>
         <Button variant="contained" sx={{ m: 1 }}>
           Submit a Review
         </Button>
         </Link>
 
-        <Link to="/party">
+        <Link to="/party" style={{ textDecoration: 'none' }}>
         <Button variant="contained" sx={{ m: 1 }}>
           Post a Party
         </Button>
         </Link>
 
-        <Link to="/comparison">
+        <Link to="/comparison" style={{ textDecoration: 'none' }}>
         <Button variant="contained" sx={{ m: 1 }}>
           Compare Dorms
         </Button>
@@ -96,10 +115,14 @@ const Home = () => {
           </h2>
         </div>
         <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center">
-          <PartyCard title={'party1'} caption={'caption1'}/>
-          <PartyCard title={'party2'} caption={'caption2'}/>
-          <PartyCard title={'party3'} caption={'caption3'}/>
-          <PartyCard title={'party4'} caption={'caption4'}/>
+        {parties.map((party) => {
+          return (
+            <div>
+              {" "}
+              <PartyCard date={party.date} location={party.location} caption={party.caption} person={party.person} title={party.title} occupancy={party.occupancy}/>
+            </div>
+          )
+        })}
         </Grid>
       </section>
       <section>
