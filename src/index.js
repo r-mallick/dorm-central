@@ -4,17 +4,12 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
-import Home from './pages/Home/Home';
-import Comparison from './pages/Comparison/Comparison';
-import Party from './pages/Party/Party';
-import ReviewsPage from './pages/ReviewsPage/ReviewsPage';
-import ReviewSubmission from './pages/ReviewSubmission/ReviewSubmission';
-
-
+import ScrollToTop from "./ScrollToTop";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
+    <ScrollToTop />
     <App />
   </BrowserRouter>
 );
