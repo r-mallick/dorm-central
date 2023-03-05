@@ -79,6 +79,12 @@ const Party = () => {
             </TableCell>
           </TableRow>
           <TableRow> 
+            <TableCell>Your Name </TableCell>
+            <TableCell  align="left">
+              <TextField sx={{width: 300}} placeholder="First, Last" id="outlined-basic" label="Name" variant="outlined" />
+            </TableCell>
+          </TableRow>
+          <TableRow> 
             <TableCell>Maximum Occupancy </TableCell>
             <TableCell align="left">
               <TextField sx={{width: 300}} placeholder="Integer Value" id="outlined-basic" label="Occupancy" variant="outlined" />
@@ -87,7 +93,7 @@ const Party = () => {
           <TableRow>
             <TableCell>Date/Time: </TableCell>
             <TableCell align="left" >
-              <TextField sx={{width: 300}} placeholder="month / day / year" id="outlined-basic" label="Date" variant="outlined" />
+              <TextField sx={{width: 300}} placeholder="month / day / Time" id="outlined-basic" label="Date" variant="outlined" />
             </TableCell>
           </TableRow>
           <TableRow>
