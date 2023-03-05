@@ -18,7 +18,7 @@ import './Party.css';
 
 
 const Party = () => {
-  const[open,setOpen] = useState(-1);
+  const[open,setOpen] = useState(1);
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   return (
     <body class="body">
@@ -32,16 +32,16 @@ const Party = () => {
         </h2>
       </div>
       </section>
-      <TableContainer style={{ width: 1200 , margin: 'auto', border: "1px solid rgba(0,0,0,0.2)", padding: 4}} component={Paper}></TableContainer>
+      <TableContainer style={{ width: 1200 , margin: 'auto', border: "1px solid rgba(0,0,0,0.2)", padding: 4}} class="rating-box" component={Paper}></TableContainer>
       <h2 class="hero1-title1" align="center">
               Party Submission Form
         </h2>
       <h1 class="hero1-title1"> </h1>
-    <TableContainer style={{ width: 1200 , margin: 'auto', border: "1px solid rgba(0,0,0,0.2)", padding: 4}} component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer class="rating-box" style={{ width: 950 , margin: 'auto', border: "1px solid rgba(0,0,0,0.2)", padding: 4}} component={Paper}>
+      <Table sx={{ minWidth: 200 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Location:
+            <TableCell> Location 
               <IconButton
                 onClick = {() => setOpen(open === 1 ? -1 : 1)}
               >
@@ -51,50 +51,55 @@ const Party = () => {
               }
               </IconButton>
             </TableCell>
-          </TableRow>
-          <TableRow>
+            <TableCell>
             <Collapse in = {open === 1}>
-              <TableContainer component={Paper}>
-                <TableRow>
-                  <TableCell align="left"> <Checkbox {...label} /> Olympic/Centenial </TableCell>
-                  <TableCell align="left"> <Checkbox {...label} /> Sproul </TableCell>
-                  <TableCell align="left"> <Checkbox {...label} /> De Neve </TableCell>
-                  <TableCell align="left"> <Checkbox {...label} /> Sunset </TableCell>
+                <TableRow >
+                  <TableCell align="center"> <Checkbox {...label} /> Sproul </TableCell>
+                  <TableCell align="center"> <Checkbox {...label} /> De Neve </TableCell>
+                  <TableCell align="center"> <Checkbox {...label} /> Sunset </TableCell>
+                  <TableCell align="center"> <Checkbox {...label} /> Saxon </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell align="left"> <Checkbox {...label} /> Saxon </TableCell>
-                  <TableCell align="left"> <Checkbox {...label} /> Rieber </TableCell>
-                  <TableCell align="left"> <Checkbox {...label} /> Hedrick </TableCell>
-                  <TableCell align="left"> <Checkbox {...label} /> Hitch </TableCell>
+                  <TableCell align="center"> <Checkbox {...label} /> Hedrick </TableCell>
+                  <TableCell align="center"> <Checkbox {...label} /> Olympic/Centenial </TableCell>
+                  <TableCell align="center"> <Checkbox {...label} /> Hitch </TableCell>
+                  <TableCell align="center"> <Checkbox {...label} /> Rieber </TableCell>
                 </TableRow>
-              </TableContainer>
             </Collapse>
+            </TableCell>
           </TableRow>
           </TableHead>
           </Table>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 550 }} aria-label="simple table">
           <TableHead>
+          <TableRow> 
+            <TableCell>Party Name </TableCell>
+            <TableCell  align="left">
+              <TextField sx={{width: 300}} placeholder="Something Fun" id="outlined-basic" label="Party Name" variant="outlined" />
+            </TableCell>
+          </TableRow>
           <TableRow> 
             <TableCell>Maximum Occupancy </TableCell>
             <TableCell align="left">
-              <TextField id="outlined-basic" label="Occupancy" variant="outlined" />
+              <TextField sx={{width: 300}} placeholder="Integer Value" id="outlined-basic" label="Occupancy" variant="outlined" />
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Date/Time: </TableCell>
-            <TableCell align="left">
-              <TextField id="outlined-basic" label="Date" variant="outlined" />
+            <TableCell align="left" >
+              <TextField sx={{width: 300}} placeholder="month / day / year" id="outlined-basic" label="Date" variant="outlined" />
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Caption/Comments: </TableCell>
-            <TableCell tyle={{ width: 1000 }}>
-              <TextField id="fullWidth" label="Extra Deets" variant="outlined" />
+            <TableCell  align="left" tyle={{ width: 1000 }}>
+              <TextField sx={{width: 600}} InputProps={{ sx: { height: 120 } }} placeholder="Be Appropriate !" multiline maxRows={4} id="fullWidth" label="Extra Deets" variant="outlined" />
             </TableCell>
           </TableRow>
-          <TableRow align="center">
-          <TableCell>Submit: </TableCell>
+          <TableRow >
+            <TableCell align="center">
             <Button variant="contained" size="large"> Submit Party !</Button>
+            </TableCell>
           </TableRow>
         </TableHead>
       </Table>
