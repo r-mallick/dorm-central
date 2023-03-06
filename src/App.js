@@ -15,6 +15,7 @@ function App() {
     
     <Routes>
         <Route index element={<Home />} />
+        <Route path='home' element={<Home />} />
         <Route path='comparison' element={<Comparison />} />
         <Route path='reviewsPage' element={<ReviewsPage />} />
         <Route path='reviewSubmission' element={<ReviewSubmission />} />

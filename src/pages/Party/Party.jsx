@@ -12,14 +12,30 @@ import React, { useState} from 'react';
 import { Collapse } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
-
 import './Party.css';
-
-
+import { Link } from "react-router-dom";
+import { db } from '../../firebase';
+import { collection, addDoc } from "firebase/firestore";
 
 const Party = () => {
   const[open,setOpen] = useState(1);
+
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+  
+  //This uses useState to save the inputted values of each text field
+  const [newDate, setNewDate] = useState("");
+  const [newCaption, setNewCaption] = useState("");
+  const [newTitle, setNewTitle] = useState("");
+  const [newOccupancy, setNewOccupancy] = useState("");
+  const [newName, setNewName] = useState("");
+  const partiesCollectionRef = collection(db, "parties");
+
+  //This calls the Firestore database and creates a new document with the text fields
+  //TODO: Need to input the region field, which Pablo can do
+  const createParty = async () => {
+    await addDoc(partiesCollectionRef, {date: newDate, caption: newCaption, title: newTitle, occupancy: newOccupancy, location: "Sunset Village", person: newName});
+  }
+
   return (
     <body class="body">
       <section class="hero1">
@@ -75,36 +91,53 @@ const Party = () => {
           <TableRow> 
             <TableCell>Party Name </TableCell>
             <TableCell  align="left">
-              <TextField sx={{width: 300}} placeholder="Something Fun" id="outlined-basic" label="Party Name" variant="outlined" />
+              <TextField sx={{width: 300}} placeholder="Something Fun" id="outlined-basic" label="Party Name" variant="outlined"
+              onChange={(event) => {
+                setNewTitle(event.target.value);
+              }}/>
             </TableCell>
           </TableRow>
           <TableRow> 
             <TableCell>Your Name </TableCell>
             <TableCell  align="left">
-              <TextField sx={{width: 300}} placeholder="First, Last" id="outlined-basic" label="Name" variant="outlined" />
+              <TextField sx={{width: 300}} placeholder="First, Last" id="outlined-basic" label="Name" variant="outlined"
+              onChange={(event) => {
+                setNewName(event.target.value);
+              }}/>
             </TableCell>
           </TableRow>
           <TableRow> 
             <TableCell>Maximum Occupancy </TableCell>
             <TableCell align="left">
-              <TextField sx={{width: 300}} placeholder="Integer Value" id="outlined-basic" label="Occupancy" variant="outlined" />
+              <TextField sx={{width: 300}} placeholder="Integer Value" id="outlined-basic" label="Occupancy" variant="outlined"
+              onChange={(event) => {
+                setNewOccupancy(event.target.value);
+              }}/>
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Date/Time: </TableCell>
             <TableCell align="left" >
-              <TextField sx={{width: 300}} placeholder="month / day / Time" id="outlined-basic" label="Date" variant="outlined" />
+              <TextField sx={{width: 300}} placeholder="month / day / year" id="outlined-basic" label="Date" variant="outlined"
+              onChange={(event) => {
+                setNewDate(event.target.value);
+              }}/>
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Caption/Comments: </TableCell>
             <TableCell  align="left" tyle={{ width: 1000 }}>
-              <TextField sx={{width: 600}} InputProps={{ sx: { height: 120 } }} placeholder="Be Appropriate !" multiline maxRows={4} id="fullWidth" label="Extra Deets" variant="outlined" />
+              <TextField sx={{width: 600}} InputProps={{ sx: { height: 120 } }} placeholder="Be Appropriate !" multiline maxRows={4} id="fullWidth" label="Extra Deets" variant="outlined" 
+              onChange={(event) => {
+                setNewCaption(event.target.value);
+              }}/>
             </TableCell>
           </TableRow>
           <TableRow >
             <TableCell align="center">
-            <Button variant="contained" size="large"> Submit Party !</Button>
+            <Link to="/home" style={{ textDecoration: 'none' }}>
+            <Button variant="contained" size="large" onClick={createParty}> Submit Party !</Button>
+            </Link>
             </TableCell>
           </TableRow>
         </TableHead>
