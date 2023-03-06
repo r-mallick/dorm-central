@@ -12,14 +12,25 @@ import React, { useState} from 'react';
 import { Collapse } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
-
 import './Party.css';
-
-
+import { Link } from "react-router-dom";
+import { db } from '../../firebase';
+import { collection, addDoc } from "firebase/firestore";
 
 const Party = () => {
   const[open,setOpen] = useState(1);
+
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+  const [newDate, setNewDate] = useState("");
+  const [newCaption, setNewCaption] = useState("");
+  const [newTitle, setNewTitle] = useState("");
+  const [newOccupancy, setNewOccupancy] = useState("");
+  const partiesCollectionRef = collection(db, "parties");
+  const createParty = async () => {
+    await addDoc(partiesCollectionRef, {date: newDate, caption: newCaption, title: newTitle, occupancy: newOccupancy, location: "Sunset Village", person: "Rahul"});
+  }
+
   return (
     <body class="body">
       <section class="hero1">
