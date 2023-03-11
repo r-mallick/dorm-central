@@ -1,8 +1,12 @@
 
 import * as React from 'react';
-import { Typography, Container, Box, Tabs, Tab,  Card, CardContent,  Grid, Stack, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import {Link } from "react-router-dom";
+import { Typography, Container, Box, Tabs, Tab,  Card, CardContent,  Grid, Stack, FormControl, InputLabel, MenuItem, Select, IconButton} from '@mui/material';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import { db } from '../../firebase';
+import { collection, updateDoc, doc, getDocs } from "firebase/firestore";
 import './ReviewsPage.css'
+
 
 
 //Tabs used for dorm selection
@@ -59,35 +63,43 @@ function BasicSelect() {
   );
 }
 
-//Review card prop
-function ReviewCard(){
-  return (
-    <Grid sx={{ mx: 2 }}>
-      <Card style = {{width: 800}} >
-        <CardContent>
-          <Typography variant="h6" fontWeight="bold" align="center" paragraph>
-          </Typography>
-          <Typography variant="h5">
-            Region reviewed, Number of stars, date of submission
 
-          </Typography>
-          <Typography component="p" paragraph style={{ marginTop: '20px'}}>
-          When we have an arguement to recieve with a long string for the review text
-          it will be displayed in this field. In the meantime I will be writing words 
-          to fill up space, so that we will have an idea of the sizing. 
-          </Typography>
-          
-        </CardContent>
-      </Card>
-    </Grid>
-  );
-}
 
 
 
 //webpage
-
 const ReviewsPage = () => {
+  //data stuctures for holding database info
+  const [reviews, setReviews] = React.useState([]);
+  const reviewsCollectionRef = collection(db, "reviews");
+
+  //querey database function
+  React.useEffect(() => {
+    const getReviews = async () => {
+      const data = await getDocs(reviewsCollectionRef);
+      setReviews(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+    };
+
+    getReviews();
+  }, []);
+  
+  //update reviews (like/dislike)
+  const incrementLike= async (id, rating, direction) => {
+
+    if(direction == "up")
+    {
+      const userDoc = doc(db, "reviews", id);
+      const newFields = {likes: rating + 1};
+      await updateDoc(userDoc, newFields);
+    }
+    else if( direction == "down")
+    {
+      const userDoc = doc(db, "reviews", id);
+      const newFields = {dislikes: rating + 1};
+      await updateDoc(userDoc, newFields);
+    }
+  };
+
   return (
     <body class="body"> 
       <section class="hero-rev">
@@ -106,10 +118,44 @@ const ReviewsPage = () => {
       </section>
       <section >
         <Stack xs={12} style={{ marginTop: '50px'}} spacing={5} direction="column"  alignItems="center" justifyContent="center">
-          <ReviewCard/>
-          <ReviewCard/>
-          <ReviewCard/>
-          <ReviewCard/>
+          {reviews.map((Review) => {
+            //Review card prop
+            function ReviewCard({building, roomType, stars, review, likes, dislikes}){
+              return (
+                <Grid sx={{ mx: 2 }}>
+                  <Card style = {{width: 800}} >
+                    <CardContent>
+                      <Typography variant="h5">
+                        {building}, {roomType}, {stars}/5
+                      </Typography>
+                      <Typography component="p" paragraph style={{ marginTop: '20px'}}>
+                        {review}
+                      </Typography>
+                    </CardContent>
+                    <Stack direction='row' spacing={2} justifyContent="left">
+                      <IconButton onClick={() => {incrementLike(Review.id, Review.likes, "up")}}>
+                        <ThumbUpOutlinedIcon />
+                        <Typography variant='h6'>{likes}</Typography>
+                      </IconButton>
+                      <IconButton onClick={() => {incrementLike(Review.id, Review.dislikes, "down")}}>
+                        <ThumbDownOutlinedIcon />
+                        <Typography variant='h6'>{dislikes}</Typography>
+                      </IconButton>
+                    </Stack>
+                  </Card>
+                </Grid>
+              );
+            }
+            return (
+              <div>
+                {" "}
+                <ReviewCard building={Review.building} roomType={Review.roomType} stars={Review.stars} review={Review.review} likes={Review.likes} dislikes={Review.dislikes}>
+              
+                </ReviewCard> 
+                
+              </div>
+            )
+          })}
         </Stack>
       </section>
     </body>
