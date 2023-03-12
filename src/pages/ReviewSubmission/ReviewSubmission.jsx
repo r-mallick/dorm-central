@@ -16,7 +16,8 @@ import React, { useState, useEffect } from 'react';
 
 import { db } from '../../firebase'
 import './RatingBox.css';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
+
 const Header = styled(AppBar)({
   backgroundColor: '#923939ce',
   padding: '50px',
@@ -25,17 +26,16 @@ const Header = styled(AppBar)({
 function RatingBox() {
   const [rating, setRating] = useState(null);
   const [comment, setComment] = useState('');
-  const [value, setValue] = useState();
-  const [selectedValue, setSelectedValue] = useState('');
-  const [users, setUsers] = useState([])
-  const usersCollectRef = collection(db, "users")
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectRef)
-      console.log(data)
+  const [room, setRoom] = useState();
+  // const [location, setLocation] = useState();
+  const [location, setLocation] = useState('');
+  const reviewsCollectRef = collection(db, "users")
+  
+  const getReview = async () => {
+    await addDoc(reviewsCollectRef, {building: location, review: comment, roomType: room, stars: rating})
     }
-    getUsers()
-  }, [])
+  
+
 
   const handleRatingChange = (event) => {
     setRating(event.target.value);
@@ -46,26 +46,20 @@ function RatingBox() {
   };
 
   const handleLocationChange = (event) => {
-    setSelectedValue(event.target.value);
+    setLocation(event.target.value);
   };
 
   const handleRoomChange = (event) => {
-    setSelectedValue(event.target.value); 
+    setRoom(event.target.value); 
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(`Rating: ${rating}`);
     console.log(`Comment: ${comment}`);
-    console.log(`Selected Location: ${selectedValue}`);
+    console.log(`Selected Location: ${location}`);
   };
-
-  function handleChange(event) {
-    setValue(event.target.value); 
-    setSelectedValue(event.target.value);
-  }
-    
-
+ 
 
 
   return (
@@ -88,11 +82,10 @@ function RatingBox() {
         <Typography className="submit" component="legend">Review</Typography>
         <Rating
           name="simple-controlled"
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-        />
+          value={rating}
+          onChange={handleRatingChange} />
+        
+        
         <FormControl fullWidth size="small" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel className="form-control label" id="demo-simple-select-label">Location</InputLabel>
         <Select
@@ -101,7 +94,7 @@ function RatingBox() {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label="Location"
-          value={selectedValue}
+          value={location}
           onChange={handleLocationChange}
         > 
           <MenuItem value="Sunset Village">Sunset Village</MenuItem>
@@ -123,7 +116,7 @@ function RatingBox() {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label="Room Type"
-          value={selectedValue}
+          value={room}
           onChange={handleRoomChange}
         > 
           <MenuItem value="Classic">Classic</MenuItem>
@@ -135,7 +128,7 @@ function RatingBox() {
      
         </div>
         <textarea className="comment-input" placeholder="Write your review here..." onChange={handleCommentChange}></textarea>
-        <button type="submit" className="submit-button">Submit</button>
+        <button onClick={getReview} type="submit" className="submit-button">Submit</button>
       </form>
     </div>
     </div> 
