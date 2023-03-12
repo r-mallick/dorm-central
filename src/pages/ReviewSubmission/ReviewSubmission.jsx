@@ -29,10 +29,11 @@ function RatingBox() {
   const [room, setRoom] = useState();
   // const [location, setLocation] = useState();
   const [location, setLocation] = useState('');
-  const reviewsCollectRef = collection(db, "users")
+  const reviewsCollectionRef = collection(db, "reviews")
   
+
   const getReview = async () => {
-    await addDoc(reviewsCollectRef, {building: location, review: comment, roomType: room, stars: rating})
+    await addDoc(reviewsCollectionRef, {building: location, review: comment, roomType: room, stars: rating})
     }
   
 
