@@ -8,6 +8,11 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import React, { useState} from 'react';
 import { Collapse } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
@@ -17,25 +22,28 @@ import { Link } from "react-router-dom";
 import { db } from '../../firebase';
 import { collection, addDoc } from "firebase/firestore";
 
+
 const Party = () => {
   const[open,setOpen] = useState(1);
 
+
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-  
+ 
   //This uses useState to save the inputted values of each text field
   const [newDate, setNewDate] = useState("");
   const [newCaption, setNewCaption] = useState("");
   const [newTitle, setNewTitle] = useState("");
-  const [newOccupancy, setNewOccupancy] = useState("");
+  const [newOccupancy, setNewOccupancy] = useState(0);
   const [newName, setNewName] = useState("");
+  const [newLocation, setNewLocation] = useState("");
   const partiesCollectionRef = collection(db, "parties");
+
 
   //This calls the Firestore database and creates a new document with the text fields
   //TODO: Need to input the region field, which Pablo can do
   const createParty = async () => {
-    await addDoc(partiesCollectionRef, {date: newDate, caption: newCaption, title: newTitle, occupancy: newOccupancy, location: "Sunset Village", person: newName});
+    await addDoc(partiesCollectionRef, {date: newDate, caption: newCaption, title: newTitle, occupancy: newOccupancy, location: newLocation, person: newName});
   }
-
   return (
     <body class="body">
       <section class="hero1">
@@ -57,7 +65,7 @@ const Party = () => {
       <Table sx={{ minWidth: 200 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell> Location 
+            <TableCell> Location
               <IconButton
                 onClick = {() => setOpen(open === 1 ? -1 : 1)}
               >
@@ -69,18 +77,27 @@ const Party = () => {
             </TableCell>
             <TableCell>
             <Collapse in = {open === 1}>
+                  <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="female"
+              name="radio-buttons-group"
+            >
                 <TableRow >
-                  <TableCell align="center"> <Checkbox {...label} /> Sproul </TableCell>
-                  <TableCell align="center"> <Checkbox {...label} /> De Neve </TableCell>
-                  <TableCell align="center"> <Checkbox {...label} /> Sunset </TableCell>
-                  <TableCell align="center"> <Checkbox {...label} /> Saxon </TableCell>
+                  <TableCell align="center"><FormControlLabel value="Sproul" control={<Radio />} label="Sproul" onChange={e=>setNewLocation(e.target.value)}/> </TableCell>
+                  <TableCell align="center"><FormControlLabel value="De Neve" control={<Radio />} label="De Neve"  onChange={e=>setNewLocation(e.target.value)}/> </TableCell>
+                  <TableCell align="center"><FormControlLabel value="Sunset" control={<Radio />} label="Sunset"  onChange={e=>setNewLocation(e.target.value)}/> </TableCell>
+                  <TableCell align="center"><FormControlLabel value="Saxon" control={<Radio />} label="Saxon"  onChange={e=>setNewLocation(e.target.value)}/> </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell align="center"> <Checkbox {...label} /> Hedrick </TableCell>
-                  <TableCell align="center"> <Checkbox {...label} /> Olympic/Centenial </TableCell>
-                  <TableCell align="center"> <Checkbox {...label} /> Hitch </TableCell>
-                  <TableCell align="center"> <Checkbox {...label} /> Rieber </TableCell>
+                <TableCell align="center"><FormControlLabel value="Hedrick" control={<Radio />} label="Hedrick"  onChange={e=>setNewLocation(e.target.value)}/> </TableCell>
+                  <TableCell align="center"><FormControlLabel value="Olympic/Centenial" control={<Radio />} label="Olympic/Centenial"  onChange={e=>setNewLocation(e.target.value)}/> </TableCell>
+                  <TableCell align="center"><FormControlLabel value="Hitch" control={<Radio />} label="Hitch"  onChange={e=>setNewLocation(e.target.value)}/> </TableCell>
+                  <TableCell align="center"><FormControlLabel value="Rieber" control={<Radio />} label="Rieber"  onChange={e=>setNewLocation(e.target.value)}/> </TableCell>
                 </TableRow>
+                </RadioGroup>
+          </FormControl>
             </Collapse>
             </TableCell>
           </TableRow>
@@ -88,7 +105,7 @@ const Party = () => {
           </Table>
           <Table sx={{ minWidth: 550 }} aria-label="simple table">
           <TableHead>
-          <TableRow> 
+          <TableRow>
             <TableCell>Party Name </TableCell>
             <TableCell  align="left">
               <TextField sx={{width: 300}} placeholder="Something Fun" id="outlined-basic" label="Party Name" variant="outlined"
@@ -97,7 +114,7 @@ const Party = () => {
               }}/>
             </TableCell>
           </TableRow>
-          <TableRow> 
+          <TableRow>
             <TableCell>Your Name </TableCell>
             <TableCell  align="left">
               <TextField sx={{width: 300}} placeholder="First, Last" id="outlined-basic" label="Name" variant="outlined"
@@ -106,7 +123,7 @@ const Party = () => {
               }}/>
             </TableCell>
           </TableRow>
-          <TableRow> 
+          <TableRow>
             <TableCell>Maximum Occupancy </TableCell>
             <TableCell align="left">
               <TextField sx={{width: 300}} placeholder="Integer Value" id="outlined-basic" label="Occupancy" variant="outlined"
@@ -118,7 +135,7 @@ const Party = () => {
           <TableRow>
             <TableCell>Date/Time: </TableCell>
             <TableCell align="left" >
-              <TextField sx={{width: 300}} placeholder="month / day / year" id="outlined-basic" label="Date" variant="outlined"
+              <TextField sx={{width: 300}} placeholder="month / day / time" id="outlined-basic" label="Date" variant="outlined"
               onChange={(event) => {
                 setNewDate(event.target.value);
               }}/>
@@ -127,7 +144,7 @@ const Party = () => {
           <TableRow>
             <TableCell>Caption/Comments: </TableCell>
             <TableCell  align="left" tyle={{ width: 1000 }}>
-              <TextField sx={{width: 600}} InputProps={{ sx: { height: 120 } }} placeholder="Be Appropriate !" multiline maxRows={4} id="fullWidth" label="Extra Deets" variant="outlined" 
+              <TextField sx={{width: 600}} InputProps={{ sx: { height: 120 } }} placeholder="Be Appropriate !" multiline maxRows={4} id="fullWidth" label="Extra Deets" variant="outlined"
               onChange={(event) => {
                 setNewCaption(event.target.value);
               }}/>
@@ -143,10 +160,16 @@ const Party = () => {
         </TableHead>
       </Table>
     </TableContainer>
-    </body> 
+    </body>
   );
 }
 
 
+
+
 export default Party;
+
+
+
+
 
