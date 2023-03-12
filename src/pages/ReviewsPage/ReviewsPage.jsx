@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { Typography, Container, Box, Tabs, Tab,  Card, CardContent,  Grid, Stack, FormControl, InputLabel, MenuItem, Select, IconButton} from '@mui/material';
+import { Rating, Typography, Container, Box, Tabs, Tab,  Card, CardContent,  Grid, Stack, FormControl, InputLabel, MenuItem, Select, IconButton} from '@mui/material';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import { db } from '../../firebase';
@@ -126,8 +126,9 @@ const ReviewsPage = () => {
                   <Card style = {{width: 800}} >
                     <CardContent>
                       <Typography variant="h5">
-                        {building}, {roomType}, {stars}/5
+                        {building}, {roomType}
                       </Typography>
+                      <Rating name="read-only" value={stars} readOnly />
                       <Typography component="p" paragraph style={{ marginTop: '20px'}}>
                         {review}
                       </Typography>
