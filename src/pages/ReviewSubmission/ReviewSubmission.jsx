@@ -12,9 +12,11 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from "@material-ui/icons/Menu";
 import { styled } from '@mui/material/styles';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { db } from '../../firebase'
 import './RatingBox.css';
- 
+import { collection, getDocs } from 'firebase/firestore';
 const Header = styled(AppBar)({
   backgroundColor: '#923939ce',
   padding: '50px',
@@ -25,6 +27,16 @@ function RatingBox() {
   const [comment, setComment] = useState('');
   const [value, setValue] = useState();
   const [selectedValue, setSelectedValue] = useState('');
+  const [users, setUsers] = useState([])
+  const usersCollectRef = collection(db, "users")
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectRef)
+      console.log(data)
+    }
+    getUsers()
+  }, [])
+
   const handleRatingChange = (event) => {
     setRating(event.target.value);
   };
