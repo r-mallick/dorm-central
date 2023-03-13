@@ -1,87 +1,70 @@
 
 import * as React from 'react';
-import { Typography, Container, Box, Tabs, Tab,  Card, CardContent,  Grid, Stack, FormControl, InputLabel, MenuItem, Select, IconButton} from '@mui/material';
+import { Rating, Typography, Container, Box, Tabs, Tab,  Card, CardContent,  Grid, Stack, FormControl, InputLabel, MenuItem, Select, IconButton} from '@mui/material';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import { db } from '../../firebase';
-import { collection, updateDoc, doc, getDocs } from "firebase/firestore";
+import { collection, updateDoc, doc, getDocs, query, where } from "firebase/firestore";
 import './ReviewsPage.css'
-
-
-
-//Tabs used for dorm selection
-function CenteredTabs() {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  return (
-    <Box sx={{ width: '100%', bgcolor: "#f2f6fc" }}>
-      <Tabs value={value} onChange={handleChange} centered>
-        <Tab label="All Dorms" />
-        <Tab label="Sunset Village" />
-        <Tab label="De Neve" />
-        <Tab label="Hedrick" />
-        <Tab label="Olympic/Centennial" />
-        <Tab label="Hitch" />
-        <Tab label="Saxon" />
-        <Tab label="Sproul" />
-        <Tab label="Reiber" />
-      </Tabs>
-    </Box>
-  );
-}
-
-//Dropdown menu for filtering
-function BasicSelect() {
-  const [Filter, setFilter] = React.useState('');
-
-  const handleChange = (event) => {
-    setFilter(event.target.value);
-  };
-
-  return (
-    <Box >
-      <FormControl sx={{ width: "70%", mx: '10%', bgcolor: "#f2f6fc" }} margin='dense'>
-        <InputLabel id="demo-simple-select-label">Filter</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={Filter}
-          label="Filter"
-          onChange={handleChange}
-        >
-          <MenuItem value={'all'}>All</MenuItem>
-          <MenuItem value={'classic'}>Classic</MenuItem>
-          <MenuItem value={'deluxe'}>Deluxe</MenuItem>
-          <MenuItem value={'suite'}>Suite</MenuItem>
-          <MenuItem value={'plaza'}>Plaza</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-  );
-}
-
-
-
+import { useLocation } from "react-router-dom";
 
 
 //webpage
-const ReviewsPage = () => {
+const ReviewsPage = (props) => {
+  //for retrieving which dorm region was selected from the home page
+  const location = useLocation();
+  const data = location.state?.data;
+  const dormRegion = data.value.toString();
+
   //data stuctures for holding database info
   const [reviews, setReviews] = React.useState([]);
   const reviewsCollectionRef = collection(db, "reviews");
 
+  const [value, setValue] = React.useState(dormRegion);
+
+  //This is for dorm region selection
+  const [region, setRegion] = React.useState(dormRegion);
+
+  //This is for room type selection
+  const [roomType, setRoomType] = React.useState("all");
+  
+  //handleChange functions for both filters
+  const handleRegionChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const [Filter, setFilter] = React.useState('');
+  
+  const handleRoomTypeChange = (event) => {
+    setFilter(event.target.value);
+    setRoomType(event.target.value);
+  };
+
   //querey database function
   React.useEffect(() => {
+
     const getReviews = async () => {
-      const data = await getDocs(reviewsCollectionRef);
-      setReviews(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      let q = reviewsCollectionRef
+      if (region == "all" && roomType == "all") {
+        q = reviewsCollectionRef
+      }
+      else if (region == "all") {
+        q = query(reviewsCollectionRef, where("roomType", "==", roomType))
+      }
+      else if (roomType == "all") {
+        q = query(reviewsCollectionRef, where("building", "==", region))
+      }
+      else {
+        q = query(reviewsCollectionRef, where("building", "==", region), where("roomType", "==", roomType));
+      }
+      
+      //const data = await getDocs(reviewsCollectionRef);
+      const querySnapshot = await getDocs(q);
+      setReviews(querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
     };
 
     getReviews();
-  }, []);
+  }, [region]);
   
   //update reviews (like/dislike)
   const incrementLike= async (id, rating, direction) => {
@@ -100,6 +83,7 @@ const ReviewsPage = () => {
     }
   };
 
+
   return (
     <body class="body"> 
       <section class="hero-rev">
@@ -111,8 +95,37 @@ const ReviewsPage = () => {
             Hear what other Bruins have to say about The Hill
           </h2>
           <Container maxWidth="false"  >
-            <CenteredTabs></CenteredTabs>
-            <BasicSelect></BasicSelect> 
+          <Box sx={{ width: '100%', bgcolor: "#f2f6fc" }}>
+            <Tabs value={value} onChange={handleRegionChange} centered>
+              <Tab label="All Dorms" value="all" onClick = {() => {setRegion("all")}}/>
+              <Tab label="Sunset Village" value="Sunset Village" onClick = {() => {setRegion("Sunset Village")}}/>
+              <Tab label="De Neve" value="De Neve" onClick = {() => {setRegion("De Neve")}}/>
+              <Tab label="Hedrick" value="Hedrick" onClick = {() => {setRegion("Hedrick")}}/>
+              <Tab label="Olympic/Centennial" value="Olympic/Centennial" onClick = {() => {setRegion("Olympic/Centennial")}}/>
+              <Tab label="Hitch" value="Hitch" onClick = {() => {setRegion("Hitch")}}/>
+              <Tab label="Saxon" value="Saxon" onClick = {() => {setRegion("Saxon")}}/>
+              <Tab label="Sproul" value = "Sproul" onClick = {() => {setRegion("Sproul")}}/>
+              <Tab label="Rieber" value="Rieber" onClick = {() => {setRegion("Rieber")}}/>
+            </Tabs>
+          </Box>
+          <Box >
+            <FormControl sx={{ width: "70%", mx: '10%', bgcolor: "#f2f6fc" }} margin='dense'>
+              <InputLabel id="demo-simple-select-label">Filter</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={Filter}
+                label="Filter"
+                onChange={handleRoomTypeChange}
+              >
+                <MenuItem value={'all'}>All</MenuItem>
+                <MenuItem value={'Classic'}>Classic</MenuItem>
+                <MenuItem value={'Deluxe'}>Deluxe</MenuItem>
+                <MenuItem value={'Suite'}>Suite</MenuItem>
+                <MenuItem value={'Plaza'}>Plaza</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
           </Container>
         </div>
       </section>
@@ -126,8 +139,9 @@ const ReviewsPage = () => {
                   <Card style = {{width: 800}} >
                     <CardContent>
                       <Typography variant="h5">
-                        {building}, {roomType}, {stars}/5
+                        {building}, {roomType}
                       </Typography>
+                      <Rating name="read-only" value={stars} readOnly/>
                       <Typography component="p" paragraph style={{ marginTop: '20px'}}>
                         {review}
                       </Typography>
