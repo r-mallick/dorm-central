@@ -2,10 +2,9 @@ import {
   InputLabel, MenuItem, FormControl, Select, Box,
   List, ListItem, ListItemText, Grid, Typography, ListItemIcon
 } from '@mui/material'
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import ShowerIcon from '@mui/icons-material/Shower';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import LocationCityIcon from '@mui/icons-material/LocationCity';
+import {AcUnit, Shower, LocationCity, Person, Group, Groups, Weekend, 
+  LocalLaundryService, SquareFoot, ConnectWithoutContact} from '@mui/icons-material';
+
 import './Comparison.css';
 import { React, useState, useEffect } from 'react';
 import { db } from '../../firebase';
@@ -39,9 +38,7 @@ const Comparison = () => {
     };
     getTypes2();
   }, [dorm2]); 
-  
-console.log(types.priceDouble);
-console.log(types.Bathroom);
+
 
 
 
@@ -69,7 +66,9 @@ console.log(types.Bathroom);
           
           <BasicSelect setDorm={setDorm}/>
   
-          <DisplayCompare AC={types.AC} bathroom={types.Bathroom} location={types.Locations} single={types.priceSingle} double={types.priceDouble} triple={types.priceTriple}/>
+          <DisplayCompare AC={types.AC} bathroom={types.Bathroom} location={types.Locations} 
+          single={types.priceSingle} double={types.priceDouble} triple={types.priceTriple}
+          lounge={types.Lounge} wash={types.Wash} size={types.Size} occupants={types.Occupants}/>
 
           </div>
         </div>
@@ -79,7 +78,9 @@ console.log(types.Bathroom);
  
           <BasicSelect2 setDorm2={setDorm2}/>
   
-          <DisplayCompare AC={types2.AC} bathroom={types2.Bathroom} location={types2.Locations} single={types2.priceSingle} double={types2.priceDouble} triple={types2.priceTriple}/>
+          <DisplayCompare AC={types2.AC} bathroom={types2.Bathroom} location={types2.Locations} 
+          single={types2.priceSingle} double={types2.priceDouble} triple={types2.priceTriple}
+          lounge={types2.Lounge} wash={types2.Wash} size={types2.Size} occupants={types2.Occupants}/>
 
           </div>
         </div>   
@@ -90,7 +91,7 @@ console.log(types.Bathroom);
 
 export default Comparison;
 
-function DisplayCompare({ AC, bathroom, location, single, double, triple}){
+function DisplayCompare({ AC, bathroom, location, single, double, triple, lounge, wash, size, occupants}){
   
   
 
@@ -101,26 +102,53 @@ function DisplayCompare({ AC, bathroom, location, single, double, triple}){
     </Typography>
       <List >
           <ListItem>
-            <ListItemIcon><AcUnitIcon/></ListItemIcon>
+            <ListItemIcon><AcUnit/></ListItemIcon>
             <ListItemText> {AC}</ListItemText>
           </ListItem>
 
           <ListItem>
-            <ListItemIcon><ShowerIcon/></ListItemIcon>
+            <ListItemIcon><Shower/></ListItemIcon>
             <ListItemText>{bathroom}</ListItemText>
           </ListItem>
 
           <ListItem>
-            <ListItemIcon><AttachMoneyIcon/></ListItemIcon>
-            <ListItemText>
-              {single} | {double} | {triple}
-            </ListItemText>
+            <ListItemIcon><Person/></ListItemIcon>
+            <ListItemText>{single}</ListItemText>
           </ListItem>
 
           <ListItem>
-            <ListItemIcon><LocationCityIcon/></ListItemIcon>
+            <ListItemIcon><Group/></ListItemIcon>
+            <ListItemText>{double}</ListItemText>
+          </ListItem>
+
+          <ListItem>
+            <ListItemIcon><Groups/></ListItemIcon>
+            <ListItemText>{triple}</ListItemText>
+          </ListItem>
+
+          <ListItem>
+            <ListItemIcon><LocationCity/></ListItemIcon>
             <ListItemText>{location}</ListItemText>
-             
+          </ListItem>
+
+          <ListItem>
+            <ListItemIcon><SquareFoot/></ListItemIcon>
+            <ListItemText>{size}</ListItemText>
+          </ListItem>
+
+          <ListItem>
+            <ListItemIcon><Weekend/></ListItemIcon>
+            <ListItemText>{lounge}</ListItemText>
+          </ListItem>
+
+          <ListItem>
+            <ListItemIcon><LocalLaundryService/></ListItemIcon>
+            <ListItemText>{wash}</ListItemText>
+          </ListItem>
+
+          <ListItem>
+            <ListItemIcon><ConnectWithoutContact/></ListItemIcon>
+            <ListItemText>{occupants}</ListItemText>
           </ListItem>
       </List>
   </Grid>
