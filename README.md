@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# DormCentral
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+DormCentral is a web application project for CS 35L's Winter 2023 course. This web app serves as a utility for UCLA students to get more information about their dorm selection for the following year. Users can read and submit reviews, compare room types, and even post dorm parties on this website! In short, this project aims to be the one-stop site for anything dorm related. 
 
-## Available Scripts
+## Getting started
 
-In the project directory, you can run:
+To run DormCentral on your local computer, follow these steps:
 
-### `npm start`
+1. Navigate to the directory that you want to download the repository into. Then, type this into your terminal/command line:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+git clone https://github.com/r-mallick/dorm-central.git
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. Navigate to the project using the following command:
 
-### `npm test`
+```
+cd dorm-central
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Then run the follow the following command to install all the node dependencies:
 
-### `npm run build`
+```
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Finally, to run our web app simply run the following:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Our Tech Stack
+For the front end, we utilized React to build our user interface and MaterialUI's components libraries to aid us in styling the website. For the backend, we utilized Firebase, namely it's Cloud Firestore Database to store user reviews, parties, etc. In turn, Google's Firebase API allowed us to read and write to their backend servers. 
 
-### `npm run eject`
+## Images Used in Our Project
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* https://s3.amazonaws.com/cms.ipressroom.com/173/files/20218/Olympic+Hall+room.jpg
+* https://s3.amazonaws.com/cms.ipressroom.com/173/files/20222/622fa6422cfac27232a8f4f9_UCLA+Courtside+Jesse+Herring+UCLA/UCLA+Courtside+Jesse+Herring+UCLA_60cf4aea-3abd-4931-b72d-5d941d22256c-prv.jpg
+* https://images.adsttc.com/media/images/573d/1a4e/e58e/cef0/9d00/00a5/large_jpg/A_12046_000_N15_(1).jpg?1463622206
+* https://images.adsttc.com/media/images/5745/aa80/e58e/ceaa/8500/0022/newsletter/ArchDaily_UCLA_Saxon_20.jpg?1464183401
+* https://wp.dailybruin.com/images/2015/02/web.ns_.2.19.deneve.MRK_.jpg
+* https://wp.dailybruin.com/images/2017/01/web.ns_.firstgenllc.file_.jpg
+* https://wp.dailybruin.com/images/2021/09/C.web_.news_.newdorms.ND_.jpg
+* https://www.gafcon.com/wp-content/uploads/2022/01/Sproul-UCLA-Hero.jpg
+* https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FRieberTerrace%2F&psig=AOvVaw1rxoGuLWgirsnCD6J7aDbN&ust=1678815426985000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCIjcify42f0CFQAAAAAdAAAAABAD
