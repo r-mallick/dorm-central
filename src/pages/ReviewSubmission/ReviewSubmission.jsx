@@ -28,13 +28,12 @@ function RatingBox() {
   const [rating, setRating] = useState(null);
   const [comment, setComment] = useState('');
   const [room, setRoom] = useState();
-  // const [location, setLocation] = useState();
   const [location, setLocation] = useState('');
   const reviewsCollectionRef = collection(db, "reviews")
   
 
   const getReview = async () => {
-    await addDoc(reviewsCollectionRef, {building: location, review: comment, roomType: room, number: rating})
+    await addDoc(reviewsCollectionRef, {building: location, review: comment, roomType: room, number: rating, likes: 0, dislikes: 0})
     }
   
 
@@ -60,7 +59,7 @@ function RatingBox() {
     console.log(`Rating: ${rating}`);
     console.log(`Comment: ${comment}`);
     console.log(`Selected Location: ${location}`);
-
+ 
   };
  
 
@@ -131,9 +130,9 @@ function RatingBox() {
      
         </div>
         <textarea className="comment-input" placeholder="Write your review here..." onChange={handleCommentChange}></textarea>
-        
+        <Link to="/Home" style={{ textDecoration: 'none' }}>
         <button onClick={getReview} type="submit" className="submit-button">Submit</button>
-        
+        </Link>
       </form>
     </div>
     </div> 
