@@ -10,6 +10,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
+import Toolbar from '@mui/material/Toolbar';
+import HomeIcon from '@material-ui/icons/Home';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
@@ -48,6 +50,13 @@ const Party = () => {
     <body class="body">
       <section class="hero1">
       <div class="hero1-content">
+      <Toolbar sx={{display: 'flex', justifyContent: 'flex-start'}}>
+        <Link to="/Home" style={{ textDecoration: 'none', color: 'white' }}>
+          <IconButton className="home-bbutton" edge="start" color="inherit" aria-label="home" sx={{mr: 2}}>
+            <HomeIcon />
+          </IconButton>
+        </Link>
+      </Toolbar>
         <h1 class="hero1-title">
               PartyCentral
         </h1>

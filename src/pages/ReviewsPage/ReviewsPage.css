@@ -31,7 +31,7 @@ body {
 .hero-rev-title {
    font-size: 4rem;
    font-weight: 600;
-   margin-bottom: 30;
+   margin-bottom: 0;
 }
 .hero-rev-subtitle {
    font-size: 2rem;
@@ -44,4 +44,9 @@ body {
    border-radius: 3px;
    padding: 20px;
    margin: 10px;
+ }
+ .home-button1 {
+   position: relative;
+   top: 25px;
+   left: 15px;
  }

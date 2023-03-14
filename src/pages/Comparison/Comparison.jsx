@@ -2,6 +2,10 @@ import {
   InputLabel, MenuItem, FormControl, Select, Box,
   List, ListItem, ListItemText, Grid, Typography, ListItemIcon
 } from '@mui/material'
+import Toolbar from '@mui/material/Toolbar';
+import HomeIcon from '@material-ui/icons/Home';
+import IconButton from '@mui/material/IconButton';
+import { Link } from 'react-router-dom';
 import {AcUnit, Shower, LocationCity, Person, Group, Groups, Weekend, 
   LocalLaundryService, SquareFoot, ConnectWithoutContact} from '@mui/icons-material';
 
@@ -46,6 +50,13 @@ const Comparison = () => {
     <body class="body">
       <section class="hero1">
       <div class="hero1-content">
+      <Toolbar sx={{display: 'flex', justifyContent: 'flex-start'}}>
+        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+          <IconButton className="home-button2" edge="start" color="inherit" aria-label="home" sx={{mr: 2}}>
+            <HomeIcon />
+          </IconButton>
+        </Link>
+      </Toolbar>
         <h1 class="hero1-title">
               Compare Dorms
         </h1>
