@@ -33,21 +33,35 @@ const refreshPage = ()=>{
   window.location.reload();
 }
 
-
-const incrementOccupancy = async(id,rating) => {
-  const userDoc = doc(db, "parties", id);
-  const newFields = {occupancy: rating - 1};
-  if((rating-1) <= 0 ){ await deleteDoc(doc(db, "parties", id));}
-  else{
-  await updateDoc(userDoc, newFields);}
-  refreshPage();
-}
 //Home Page Setup
 const Home = () => {
  
+  const [click, setclick] = useState(false);
   const [parties, setParties] = useState([]);
   const partiesCollectionRef = collection(db, "parties");
- 
+
+  useEffect(() => {
+    const data = window.localStorage.getItem('On_click_RSVP_Button1');
+    if(data !== null) setclick(JSON.parse(data));
+  }, [])
+
+
+  useEffect(()=>{
+    window.localStorage.setItem('On_click_RSVP_Button1', JSON.stringify(click))
+  },[click])
+
+  const incrementOccupancy = async(id,rating) => {
+    if (click === false){
+    const userDoc = doc(db, "parties", id);
+    const newFields = {occupancy: rating - 1};
+    if((rating-1) <= 0 ){ await deleteDoc(doc(db, "parties", id));}
+    else{
+    await updateDoc(userDoc, newFields);}
+    setclick(true)
+    refreshPage();
+    }
+  }
+
   useEffect(() => {
     const getParties = async () => {
       const data = await getDocs(partiesCollectionRef);
