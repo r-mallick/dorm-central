@@ -32,7 +32,7 @@ function RatingBox() {
 
   const getReview = async () => {
     const ratingNum = Number(rating);
-    await addDoc(reviewsCollectionRef, {building: location, review: comment, roomType: room, number: ratingNum, likes: 0, dislikes: 0})
+    await addDoc(reviewsCollectionRef, {building: location, review: comment, roomType: room, stars: ratingNum, likes: 0, dislikes: 0})
     }
   
 
