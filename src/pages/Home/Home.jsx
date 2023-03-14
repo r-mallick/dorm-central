@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import './Home.css';
 import { db } from '../../firebase';
 import { collection, getDocs, deleteDoc, updateDoc, doc, FieldValue} from "firebase/firestore";
-import { useState, useEffect, React } from "react";
+import { useState, useEffect} from "react";
 
 
 
