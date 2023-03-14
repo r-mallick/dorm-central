@@ -9,6 +9,7 @@ import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from "@material-ui/icons/Menu";
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
@@ -16,13 +17,9 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { db } from '../../firebase'
-import './RatingBox.css';
+import './ReviewSubmission.css';
 import { collection, addDoc } from 'firebase/firestore';
 
-const Header = styled(AppBar)({
-  backgroundColor: '#923939ce',
-  padding: '50px',
-});
 
 function RatingBox() {
   const [rating, setRating] = useState(0);
@@ -30,6 +27,7 @@ function RatingBox() {
   const [room, setRoom] = useState();
   const [location, setLocation] = useState('');
   const reviewsCollectionRef = collection(db, "reviews")
+  
   
 
   const getReview = async () => {
@@ -62,17 +60,26 @@ function RatingBox() {
     console.log(`Selected Location: ${location}`);
  
   };
- 
+
+
+
 
 
   return (
     <div>
-        <section class="hero-rev">
-        <div class="hero-rev-content">
-          <h1 class="hero-rev-title">
+        <section class="hero1">
+        <div class="hero1-content">
+        <Toolbar sx={{display: 'flex', justifyContent: 'flex-start'}}>
+        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+          <IconButton className="home-button" edge="start" color="inherit" aria-label="home" sx={{mr: 2}}>
+            <HomeIcon />
+          </IconButton>
+        </Link>
+      </Toolbar>
+          <h1 class="hero1-title">
             Submit a Review
           </h1>
-          <h2 class="hero-rev-subtitle">
+          <h2 class="hero1-subtitle">
             Rate the Hill!
           </h2>
           <Container maxWidth="false"> 

@@ -45,3 +45,8 @@ body {
    padding: 20px;
    margin: 10px;
  }
+ .home-button1 {
+   position: relative;
+   top: 25px;
+   left: 15px;
+ }
