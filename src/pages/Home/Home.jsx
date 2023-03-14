@@ -5,22 +5,10 @@ import { db } from '../../firebase';
 import { collection, getDocs, deleteDoc, updateDoc, doc, FieldValue, onSnapshot} from "firebase/firestore";
 import { useState, useEffect } from "react";
 
-
-
-
-//Party Card component
-
-
-
-
-
-
-
-
 //DormCard Component
 function DormCard({ value, imgName }) {
   return (
-    <Link to="/reviewsPage" style={{ textDecoration: 'none' }}>
+    <Link to="/reviewsPage" state={{ data: {value} }}style={{ textDecoration: 'none' }}>
       <Grid sx={{ m: 1 }}>
         <Card style = {{width: 300}}>
           <CardActionArea>

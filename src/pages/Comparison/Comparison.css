@@ -8,7 +8,7 @@
   .leftDiv{
       width: 50%;
       max-width: 50%;
-      margin-top: 50px;
+      margin-top: 25px;
       float: left;
       text-align: center;
   
@@ -17,7 +17,7 @@
   .rightDiv{
       width: 50%;
       max-width: 50%;
-      margin-top: 50px;
+      margin-top: 25px;
       float: right;
       text-align: center;
     
