@@ -59,25 +59,15 @@ const ReviewsPage = (props) => {
       }
       
       //const data = await getDocs(reviewsCollectionRef);
-      const querySnapshot = await getDocs(q);
-      setReviews(querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      onSnapshot(q, (snapshot) => 
+        setReviews(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      )
     };
 
     getReviews();
+
   }, [region]);
   
-  //live update reviews (like/dislike)
-
-  React.useEffect(
-    () => 
-      onSnapshot(reviewsCollectionRef, (snapshot) => 
-        setReviews(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
-      ),
-    []);
-
-
-
-
   return (
     <body class="body"> 
       <section class="hero-rev">
