@@ -7,9 +7,9 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import HomeIcon from '@material-ui/icons/Home';
+import { Link } from "react-router-dom";
 import { db } from '../../firebase';
-import { Link } from 'react-router-dom';
-import { collection, updateDoc, doc, getDocs, query, where } from "firebase/firestore";
+import { collection, updateDoc, doc, getDocs, query, where, onSnapshot } from "firebase/firestore";
 import './ReviewsPage.css'
 import { useLocation } from "react-router-dom";
 
@@ -64,31 +64,15 @@ const ReviewsPage = (props) => {
       }
       
       //const data = await getDocs(reviewsCollectionRef);
-      const querySnapshot = await getDocs(q);
-      setReviews(querySnapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      onSnapshot(q, (snapshot) => 
+        setReviews(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      )
     };
 
     getReviews();
+
   }, [region]);
   
-  //update reviews (like/dislike)
-  const incrementLike= async (id, rating, direction) => {
-
-    if(direction == "up")
-    {
-      const userDoc = doc(db, "reviews", id);
-      const newFields = {likes: rating + 1};
-      await updateDoc(userDoc, newFields);
-    }
-    else if( direction == "down")
-    {
-      const userDoc = doc(db, "reviews", id);
-      const newFields = {dislikes: rating + 1};
-      await updateDoc(userDoc, newFields);
-    }
-  };
-
-
   return (
     <body class="body"> 
       <section class="hero1">
@@ -145,15 +129,36 @@ const ReviewsPage = (props) => {
         <Stack xs={12} style={{ marginTop: '50px'}} spacing={5} direction="column"  alignItems="center" justifyContent="center">
           {reviews.map((Review) => {
             //Review card prop
-            function ReviewCard({building, roomType, number, review, likes, dislikes}){
+
+            function ReviewCard({building, roomType, stars, review, likes, dislikes}){
+              
+              const incrementLike= async (id, rating, direction) => {
+
+                if(direction == "up")
+                {
+                  const userDoc = doc(db, "reviews", id);
+                  const newFields = {likes: rating + 1};
+                  await updateDoc(userDoc, newFields);
+            
+                }
+                else if( direction == "down")
+                {
+                  const userDoc = doc(db, "reviews", id);
+                  const newFields = {dislikes: rating + 1};
+                  await updateDoc(userDoc, newFields);
+                }
+            
+              };
+
+
               return (
                 <Grid sx={{ mx: 2 }}>
                   <Card style = {{width: 800}} class="review-card" >
                     <CardContent>
-                      <Typography variant="h5">
-                        {building}, {roomType}
-                      </Typography>
-                      <Rating name="read-only" value={number} readOnly/>
+                      <Typography variant="h5">{building}</Typography>
+                      <Typography variant='h6'>{roomType}</Typography>
+                      <Rating name="read-only" value={stars} readOnly/>
+
                       <Typography component="p" paragraph style={{ marginTop: '20px'}}>
                         {review}
                       </Typography>

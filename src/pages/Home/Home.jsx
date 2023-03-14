@@ -2,7 +2,7 @@ import { Rating, CardMedia, Button, Grid, Card, CardContent, Typography, CardAct
 import { Link } from "react-router-dom";
 import './Home.css';
 import { db } from '../../firebase';
-import { collection, getDocs, deleteDoc, updateDoc, doc, FieldValue} from "firebase/firestore";
+import { collection, getDocs, deleteDoc, updateDoc, doc, FieldValue, onSnapshot} from "firebase/firestore";
 import { useState, useEffect } from "react";
 
 //DormCard Component
@@ -40,7 +40,7 @@ const incrementOccupancy = async(id,rating) => {
   if((rating-1) <= 0 ){ await deleteDoc(doc(db, "parties", id));}
   else{
   await updateDoc(userDoc, newFields);}
-  refreshPage();
+ 
 }
 //Home Page Setup
 const Home = () => {
@@ -59,6 +59,13 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //realtime update of party data
+  useEffect(
+    () => 
+      onSnapshot(partiesCollectionRef, (snapshot) => 
+        setParties(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      ),
+    []);
 
   //const decrement1 = FieldValue.increment(-1)
   const data = getDocs(partiesCollectionRef);
