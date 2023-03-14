@@ -6,7 +6,7 @@ import { collection, getDocs, deleteDoc, updateDoc, doc, FieldValue, onSnapshot}
 import { useState, useEffect } from "react";
 
 //DormCard Component
-function DormCard({ value, imgName }) {
+function DormCard({ value, imgName, roomTypes }) {
   return (
     <Link to="/reviewsPage" state={{ data: {value} }}style={{ textDecoration: 'none' }}>
       <Grid sx={{ m: 1 }}>
@@ -19,7 +19,7 @@ function DormCard({ value, imgName }) {
             />
             <CardContent>
               <Typography variant='h6'>{value}</Typography>
-              <Rating name="read-only" defaultValue={3} readOnly />
+              <Typography variant='p' sx={{fontStyle: 'italic'}}>Available Room Types: { roomTypes }</Typography>
             </CardContent>
           </CardActionArea>
         </Card>
@@ -138,7 +138,7 @@ const Home = () => {
                       Occupancy Left: { occupancy }
                     </Typography>
                     <Typography component="p" align="center">
-                      <Button variant="contained" onClick={() => {incrementOccupancy(party.id,party.occupancy) }}>RSVP!</Button>
+                      <Button sx={{marginTop: '15px'}} variant="contained" onClick={() => {incrementOccupancy(party.id,party.occupancy) }}>RSVP!</Button>
                     </Typography>
                   </CardContent>
                 </Card>
@@ -162,14 +162,14 @@ const Home = () => {
           </h2>
         </div>
         <Grid container spacing={0} direction="row" alignItems="center" justifyContent="center">
-          <DormCard value={'Sunset Village'} imgName={'sunset-village.jpg'} />
-          <DormCard value={'De Neve'} imgName={'de-neve.jpg'} />
-          <DormCard value={'Hedrick'} imgName={'hedrick.jpg'} />
-          <DormCard value={'Olympic/Centennial'} imgName={'olympic-centennial.jpg'} />
-          <DormCard value={'Hitch'} imgName={'hitch-suites.jpg'} />
-          <DormCard value={'Saxon'} imgName={'saxon-suites.jpg'} />
-          <DormCard value={'Sproul'} imgName={'sproul.jpg'} />
-          <DormCard value={'Rieber'} imgName={'rieber.jpg'} />
+          <DormCard value={'Sunset Village'} imgName={'sunset-village.jpg'} roomTypes={'Plaza'} />
+          <DormCard value={'De Neve'} imgName={'de-neve.jpg'} roomTypes={'Deluxe, Plaza'}/>
+          <DormCard value={'Hedrick'} imgName={'hedrick.jpg'} roomTypes={'Classic, Plaza'}/>
+          <DormCard value={'Olympic/Centennial'} imgName={'olympic-centennial.jpg'} roomTypes={'Deluxe'}/>
+          <DormCard value={'Hitch'} imgName={'hitch-suites.jpg'} roomTypes={'Suite'}/>
+          <DormCard value={'Saxon'} imgName={'saxon-suites.jpg'} roomTypes={'Suite'}/>
+          <DormCard value={'Sproul'} imgName={'sproul.jpg'} roomTypes={'Classic, Deluxe'}/>
+          <DormCard value={'Rieber'} imgName={'rieber.jpg'} roomTypes={'Classic, Plaza'}/>
 
 
         </Grid>
