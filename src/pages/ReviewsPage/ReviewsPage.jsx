@@ -1,13 +1,19 @@
 
 import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
 import { Rating, Typography, Container, Box, Tabs, Tab,  Card, CardContent,  Grid, Stack, FormControl, InputLabel, MenuItem, Select, IconButton} from '@mui/material';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import { styled } from '@mui/material/styles';
 import { db } from '../../firebase';
 import { collection, updateDoc, doc, getDocs, query, where } from "firebase/firestore";
 import './ReviewsPage.css'
 import { useLocation } from "react-router-dom";
 
+const Header = styled(AppBar)({
+  backgroundColor: '#923939ce',
+  padding: '50px',
+});
 
 //webpage
 const ReviewsPage = (props) => {

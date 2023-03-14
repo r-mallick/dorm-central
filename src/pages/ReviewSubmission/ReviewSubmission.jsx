@@ -75,7 +75,7 @@ function RatingBox() {
           <h2 class="hero-rev-subtitle">
             Rate the Hill!
           </h2>
-          <Container maxWidth="false"  > 
+          <Container maxWidth="false"> 
           </Container>
         </div>
       </section>

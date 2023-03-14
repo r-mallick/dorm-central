@@ -31,7 +31,7 @@ body {
 .hero-rev-title {
    font-size: 4rem;
    font-weight: 600;
-   margin-bottom: 30;
+   margin-bottom: 0;
 }
 .hero-rev-subtitle {
    font-size: 2rem;
