@@ -129,19 +129,19 @@ const ReviewsPage = (props) => {
           </Container>
         </div>
       </section>
-      <section >
+      <section>
         <Stack xs={12} style={{ marginTop: '50px'}} spacing={5} direction="column"  alignItems="center" justifyContent="center">
           {reviews.map((Review) => {
             //Review card prop
-            function ReviewCard({building, roomType, stars, review, likes, dislikes}){
+            function ReviewCard({building, roomType, number, review, likes, dislikes}){
               return (
                 <Grid sx={{ mx: 2 }}>
-                  <Card style = {{width: 800}} >
+                  <Card style = {{width: 800}} class="review-card" >
                     <CardContent>
                       <Typography variant="h5">
                         {building}, {roomType}
                       </Typography>
-                      <Rating name="read-only" value={stars} readOnly/>
+                      <Rating name="read-only" value={number} readOnly/>
                       <Typography component="p" paragraph style={{ marginTop: '20px'}}>
                         {review}
                       </Typography>
@@ -163,7 +163,7 @@ const ReviewsPage = (props) => {
             return (
               <div>
                 {" "}
-                <ReviewCard building={Review.building} roomType={Review.roomType} stars={Review.stars} review={Review.review} likes={Review.likes} dislikes={Review.dislikes}>
+                <ReviewCard building={Review.building} roomType={Review.roomType} number={Review.number} review={Review.review} likes={Review.likes} dislikes={Review.dislikes}>
               
                 </ReviewCard> 
                 

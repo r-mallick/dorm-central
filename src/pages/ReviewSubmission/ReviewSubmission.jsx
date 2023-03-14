@@ -25,7 +25,7 @@ const Header = styled(AppBar)({
 });
 
 function RatingBox() {
-  const [rating, setRating] = useState(null);
+  const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [room, setRoom] = useState();
   const [location, setLocation] = useState('');
@@ -33,7 +33,8 @@ function RatingBox() {
   
 
   const getReview = async () => {
-    await addDoc(reviewsCollectionRef, {building: location, review: comment, roomType: room, number: rating, likes: 0, dislikes: 0})
+    const ratingNum = Number(rating);
+    await addDoc(reviewsCollectionRef, {building: location, review: comment, roomType: room, number: ratingNum, likes: 0, dislikes: 0})
     }
   
 
