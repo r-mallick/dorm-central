@@ -24,7 +24,7 @@ body {
 .hero-rev-content {
    position: relative;
    font-family: "Monserrat", sans-serif;
-   color: white;
+   color: white(238, 52, 52);
    text-align: center;
    margin: 0.625rem;
 }
@@ -38,3 +38,10 @@ body {
    font-weight: 200;
    margin-top: 1rem;
 }
+.review-card {
+   background-color: #dad0d0ce;
+   border: 3px solid #6e6969;
+   border-radius: 3px;
+   padding: 20px;
+   margin: 10px;
+ }

@@ -11,8 +11,9 @@ import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from "@material-ui/icons/Menu";
 import { styled } from '@mui/material/styles';
-
+import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { db } from '../../firebase'
 import './RatingBox.css';
@@ -24,15 +25,16 @@ const Header = styled(AppBar)({
 });
 
 function RatingBox() {
-  const [rating, setRating] = useState(null);
+  const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [room, setRoom] = useState();
-  // const [location, setLocation] = useState();
   const [location, setLocation] = useState('');
-  const reviewsCollectRef = collection(db, "users")
+  const reviewsCollectionRef = collection(db, "reviews")
   
+
   const getReview = async () => {
-    await addDoc(reviewsCollectRef, {building: location, review: comment, roomType: room, stars: rating})
+    const ratingNum = Number(rating);
+    await addDoc(reviewsCollectionRef, {building: location, review: comment, roomType: room, number: ratingNum, likes: 0, dislikes: 0})
     }
   
 
@@ -58,6 +60,7 @@ function RatingBox() {
     console.log(`Rating: ${rating}`);
     console.log(`Comment: ${comment}`);
     console.log(`Selected Location: ${location}`);
+ 
   };
  
 
@@ -128,7 +131,9 @@ function RatingBox() {
      
         </div>
         <textarea className="comment-input" placeholder="Write your review here..." onChange={handleCommentChange}></textarea>
+        <Link to="/Home" style={{ textDecoration: 'none' }}>
         <button onClick={getReview} type="submit" className="submit-button">Submit</button>
+        </Link>
       </form>
     </div>
     </div> 
