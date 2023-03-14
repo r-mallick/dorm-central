@@ -65,7 +65,6 @@ const Party = () => {
         </h2>
       </div>
       </section>
-      <TableContainer style={{ width: 1200 , margin: 'auto', border: "1px solid rgba(0,0,0,0.2)", padding: 4}} class="rating-box" component={Paper}></TableContainer>
       <h2 class="hero1-title1" align="center">
               Party Submission Form
         </h2>
