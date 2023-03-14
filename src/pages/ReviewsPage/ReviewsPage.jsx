@@ -180,7 +180,7 @@ const ReviewsPage = (props) => {
             return (
               <div>
                 {" "}
-                <ReviewCard building={Review.building} roomType={Review.roomType} number={Review.number} review={Review.review} likes={Review.likes} dislikes={Review.dislikes}>
+                <ReviewCard building={Review.building} roomType={Review.roomType} stars={Review.stars} review={Review.review} likes={Review.likes} dislikes={Review.dislikes}>
               
                 </ReviewCard> 
                 
