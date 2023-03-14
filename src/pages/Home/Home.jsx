@@ -28,26 +28,24 @@ function DormCard({ value, imgName }) {
   )
 }
 
-
-const refreshPage = ()=>{
-  window.location.reload();
-}
-
-
-const incrementOccupancy = async(id,rating) => {
-  const userDoc = doc(db, "parties", id);
-  const newFields = {occupancy: rating - 1};
-  if((rating-1) <= 0 ){ await deleteDoc(doc(db, "parties", id));}
-  else{
-  await updateDoc(userDoc, newFields);}
- 
-}
 //Home Page Setup
 const Home = () => {
- 
+
+  const [click, setclick] = useState(false);
   const [parties, setParties] = useState([]);
   const partiesCollectionRef = collection(db, "parties");
  
+  const incrementOccupancy = async(id,rating) => {
+    if (click === false){
+    const userDoc = doc(db, "parties", id);
+    const newFields = {occupancy: rating - 1};
+    if((rating-1) <= 0 ){ await deleteDoc(doc(db, "parties", id));}
+    else{
+    await updateDoc(userDoc, newFields);}
+    setclick(true)
+    }
+  }
+
   useEffect(() => {
     const getParties = async () => {
       const data = await getDocs(partiesCollectionRef);
