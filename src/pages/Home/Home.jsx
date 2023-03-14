@@ -3,17 +3,7 @@ import { Link } from "react-router-dom";
 import './Home.css';
 import { db } from '../../firebase';
 import { collection, getDocs, deleteDoc, updateDoc, doc, FieldValue} from "firebase/firestore";
-import { useState, useEffect } from "react";
-
-
-
-
-//Party Card component
-
-
-
-
-
+import { useState, useEffect, React } from "react";
 
 
 
@@ -46,20 +36,38 @@ const refreshPage = ()=>{
 }
 
 
-const incrementOccupancy = async(id,rating) => {
-  const userDoc = doc(db, "parties", id);
-  const newFields = {occupancy: rating - 1};
-  if((rating-1) <= 0 ){ await deleteDoc(doc(db, "parties", id));}
-  else{
-  await updateDoc(userDoc, newFields);}
-  refreshPage();
-}
+
 //Home Page Setup
 const Home = () => {
  
   const [parties, setParties] = useState([]);
+  const [click, setclick] = useState(false);
   const partiesCollectionRef = collection(db, "parties");
  
+  const incrementOccupancy = async(id,rating) => {
+    if (click == false){
+    const userDoc = doc(db, "parties", id);
+    const newFields = {occupancy: rating - 1};
+    if((rating-1) <= 0 ){ await deleteDoc(doc(db, "parties", id));}
+    else{
+    await updateDoc(userDoc, newFields);}
+    setclick(true)
+    refreshPage();
+    }
+  }
+  
+
+  useEffect(() => {
+    const data = window.localStorage.getItem('On_click_RSVP_Button');
+    if(data !== null) setclick(JSON.parse(data));
+  }, [])
+
+  useEffect(()=>{
+    window.localStorage.setItem('On_click_RSVP_Button', JSON.stringify(click))
+  },[click])
+
+
+
   useEffect(() => {
     const getParties = async () => {
       const data = await getDocs(partiesCollectionRef);
@@ -71,7 +79,7 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
+  
   //const decrement1 = FieldValue.increment(-1)
   const data = getDocs(partiesCollectionRef);
   console.log(data);
@@ -145,7 +153,7 @@ const Home = () => {
                       Occupancy Left: { occupancy }
                     </Typography>
                     <Typography component="p" align="center">
-                      <Button variant="contained" onClick={() => {incrementOccupancy(party.id,party.occupancy) }}>RSVP!</Button>
+                      <Button variant="contained" onClick={() => {incrementOccupancy(party.id,party.occupancy)}}> RSVP! </Button>
                     </Typography>
                   </CardContent>
                 </Card>
