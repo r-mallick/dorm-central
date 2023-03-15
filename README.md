@@ -30,6 +30,8 @@ npm install
 npm start
 ```
 
+Now the website will be visible on http://localhost:3000. From there, you will be able to navigate all the features provided by DormCentral!
+
 ## Our Tech Stack
 For the front end, we utilized React to build our user interface and MaterialUI's components libraries to aid us in styling the website. For the backend, we utilized Firebase, namely it's Cloud Firestore Database to store user reviews, parties, etc. In turn, Google's Firebase API allowed us to read and write to their backend servers. 
 
@@ -44,3 +46,11 @@ For the front end, we utilized React to build our user interface and MaterialUI'
 * https://wp.dailybruin.com/images/2021/09/C.web_.news_.newdorms.ND_.jpg
 * https://www.gafcon.com/wp-content/uploads/2022/01/Sproul-UCLA-Hero.jpg
 * https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FRieberTerrace%2F&psig=AOvVaw1rxoGuLWgirsnCD6J7aDbN&ust=1678815426985000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCIjcify42f0CFQAAAAAdAAAAABAD
+
+## Contributors
+
+Rahul Mallick
+Aleah Delgado
+Haniya Malik
+Pablo Castro
+Ben Grisey
