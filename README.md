@@ -49,8 +49,4 @@ For the front end, we utilized React to build our user interface and MaterialUI'
 
 ## Contributors
 
-Rahul Mallick
-Aleah Delgado
-Haniya Malik
-Pablo Castro
-Ben Grisey
+Rahul Mallick | Aleah Delgado | Haniya Malik | Pablo Castro | Ben Grisey
