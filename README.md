@@ -1,6 +1,6 @@
 # DormCentral
 
-DormCentral is a web application project for CS 35L's Winter 2023 course. This web app serves as a utility for UCLA students to get more information about their dorm selection for the following year. Users can read and submit reviews, compare room types, and even post dorm parties on this website! In short, this project aims to be the one-stop site for anything dorm related. 
+DormCentral is a web application project for the UCLA student body. This web app serves as a utility for UCLA students to get more information about their dorm selection for the following year. Users can read and submit reviews, compare room types, and even post dorm parties on this website! In short, this project aims to be the one-stop site for anything dorm related. 
 
 ## Getting started
 
